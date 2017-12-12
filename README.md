@@ -25,6 +25,7 @@ use BTRFS as your root partition. This guide also assumes that you have an Intel
 1. `arch-chroot /mnt`
 1. `ln -sf /usr/share/zoneinfo/Region/City /etc/localtime`
 1. Uncomment `en_US.UTF-8`and other needed localizations in `/etc/locale.gen`
+1. `locale-gen`
 1. Edit `/etc/locale.conf` and write `LANG=en_US.UTF-8`
 1. `echo hostname > /etc/hostname`
 1. `passwd`
@@ -47,20 +48,20 @@ use BTRFS as your root partition. This guide also assumes that you have an Intel
           When = PostTransaction
           Exec = /usr/bin/bootctl update
           ```
-      1. Edit `/boot/loader/loader.conf`:
-      ```
-      default  arch
-      timeout  4
-      ```
-      1. Figure out your root UUID By running `blkid`
-      1. Create `/boot/loader/entries/arch.conf`
-      ```
-      title          Arch Linux
-      linux          /vmlinuz-linux
-      initrd         /intel-ucode.img
-      initrd         /initramfs-linux.img
-      options        root=PARTUUID=THE-UUID-YOU-FOUND-OUT rw
-      ```
+       1. Edit `/boot/loader/loader.conf`:
+       ```
+       default  arch
+       timeout  4
+       ```
+       1. Figure out your root UUID By running `blkid`
+       1. Create `/boot/loader/entries/arch.conf`
+       ```
+       title          Arch Linux
+       linux          /vmlinuz-linux
+       initrd         /intel-ucode.img
+       initrd         /initramfs-linux.img
+       options        root=PARTUUID=THE-UUID-YOU-FOUND-OUT rw
+       ```
 1. Reboot
 
 ## Extras
