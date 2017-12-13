@@ -20,7 +20,7 @@ use BTRFS as your root partition. This guide also assumes that you have an Intel
       1. `mount /dev/sda2 /mnt`
       1. `mkdir /mnt/boot`
       1. `mount /dev/sda1 /mnt/boot`
-1. `pacstrap /mnt base intel-ucode`
+1. `pacstrap /mnt base intel-ucode sudo`
 1. `genfstab -U /mnt >> /mnt/etc/fstab`
 1. `arch-chroot /mnt`
 1. `ln -sf /usr/share/zoneinfo/Region/City /etc/localtime`
@@ -28,7 +28,10 @@ use BTRFS as your root partition. This guide also assumes that you have an Intel
 1. `locale-gen`
 1. Edit `/etc/locale.conf` and write `LANG=en_US.UTF-8`
 1. `echo hostname > /etc/hostname`
-1. `passwd`
+1. `passwd` - Set the root password
+1. `useradd -m your_username`
+1. `usermod -G wheel -a your_username`
+1. `visudo` - Comment out the line containing the `wheel` group
 1. Install the bootloader
     1. **BIOS** - [GRUB](https://wiki.archlinux.org/index.php/GRUB)
        1. `pacman -S grub`
