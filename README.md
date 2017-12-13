@@ -96,7 +96,13 @@ basic system. It is far from being feature-complete, as it makes some basic assu
 
 ## Extras
 ### GNOME
-`pacman -S gnome && exec systemctl enable --now gdm`
+`pacman -S gnome && systemctl enable --now gdm`
+
+### Setting up an SSH server
+`pacman -S openssh && systemctl enable --now sshd.socket`
 
 ### Pacaur
-TODO
+1. `pacman -S --needed base-devel git`
+1. `cd /tmp`
+1. `git clone https://aur.archlinux.org/cower.git && cd cower && makepkg -i --asdeps && cd - && git
+   clone https://aur.archlinux.org/pacaur.git && cd pacaur && makepkg -i && cd - && rm -rf cower pacaur`
