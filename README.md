@@ -10,8 +10,8 @@ use BTRFS as your root partition. This guide also assumes that you have an Intel
 1. Boot into Arch Linux live installation media. Make sure that you know which disk is used for your
    installation. We'll assume it's `/dev/sda`.
 1. Partition your disk:
-   1. BIOS - Just `mkfs.btrfs /dev/sda` the entire disk and then `mount /dev/sda /mnt`
-   1. EFI - Use `cfdisk` for partitioning:
+   1. **BIOS** - Just `mkfs.btrfs /dev/sda` the entire disk and then `mount /dev/sda /mnt`
+   1. **EFI** - Use `cfdisk` for partitioning:
       1. Choose GPT partitioning
       1. Create a 512MiB partition. Set its type to `EFI System`
       1. Create a partition for the rest of the drive.
@@ -30,11 +30,11 @@ use BTRFS as your root partition. This guide also assumes that you have an Intel
 1. `echo hostname > /etc/hostname`
 1. `passwd`
 1. Install the bootloader
-    1. BIOS - GRUB
+    1. **BIOS** - [GRUB](https://wiki.archlinux.org/index.php/GRUB)
        1. `pacman -S grub`
        1. `grub-install --target=i386-pc /dev/sda`
        1. `grub-mkconfig -o /boot/grub/grub.cfg`
-    1. EFI - systemd-boot
+    1. **EFI** - [systemd-boot](https://wiki.archlinux.org/index.php/Systemd-boot)
        1. `bootctl --path=/boot install`
        1. Edit `/etc/pacman.d/hooks/systemd-boot.hook`:
           ```
