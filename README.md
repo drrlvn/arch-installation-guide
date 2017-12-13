@@ -20,6 +20,7 @@ use BTRFS as your root partition. This guide also assumes that you have an Intel
       1. `mount /dev/sda2 /mnt`
       1. `mkdir /mnt/boot`
       1. `mount /dev/sda1 /mnt/boot`
+1. If you're using Wifi, launch `wifi-menu`
 1. `pacstrap /mnt base intel-ucode sudo`
 1. `genfstab -U /mnt >> /mnt/etc/fstab`
 1. `arch-chroot /mnt`
@@ -27,6 +28,28 @@ use BTRFS as your root partition. This guide also assumes that you have an Intel
 1. Uncomment `en_US.UTF-8`and other needed localizations in `/etc/locale.gen`
 1. `locale-gen`
 1. Edit `/etc/locale.conf` and write `LANG=en_US.UTF-8`
+1. Networking
+   1. **Laptop** - Use [NetworkManager](https://wiki.archlinux.org/index.php/NetworkManager)
+      1. `pacman -S networkmanager`
+      1. `systemctl enable NetworkManager`
+      1. Once you have a GUI environment set up - configure the network using the GUI
+   1. **PC/VM** - Use [systemd-networkd](https://wiki.archlinux.org/index.php/Systemd-networkd)
+      1. `systemctl enable systemd-{network,resolve}d`
+      1. Use `ip l` to determine the name of your network interface
+      1. Edit `/etc/systemd/network/dhcp.network`:
+      ```
+      [Match]
+      Name=name_of_your_interface
+
+      [Network]
+      DHCP=ipv4
+      Domains=extra.domains.that.you.need.com
+
+      [DHCP]
+      UseDomains=yes
+      SendHostname=yes
+      ```
+      1. `rm /etc/resolv.conf && ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf`
 1. `echo hostname > /etc/hostname`
 1. `passwd` - Set the root password
 1. `useradd -m your_username`
