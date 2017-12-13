@@ -6,7 +6,7 @@ basic system. It is far from being feature-complete, as it makes some basic assu
 ## Assumptions
 1. You want to use the entire disk for Arch Linux without dual-booting another operating system.
 1. You use either a physical or a virtual x86 64 bit machine which is capable booting in either BIOS or EFI mode.
-1. Use you an Intel CPU.
+1. You use an Intel CPU.
 1. Your desired root filesystem is BTRFS.
 
 ## The steps
