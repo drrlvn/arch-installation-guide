@@ -35,21 +35,20 @@ use BTRFS as your root partition. This guide also assumes that you have an Intel
       1. Once you have a GUI environment set up - configure the network using the GUI
    1. **PC/VM** - Use [systemd-networkd](https://wiki.archlinux.org/index.php/Systemd-networkd)
       1. `systemctl enable systemd-{network,resolve}d`
-      1. Use `ip l` to determine the name of your network interface
+      1. Use `ip link` to determine the name of your network interface
       1. Edit `/etc/systemd/network/dhcp.network`:
       ```
       [Match]
-      Name=name_of_your_interface
+      Name=en*
 
       [Network]
       DHCP=ipv4
-      Domains=extra.domains.that.you.need.com
+      Domains=extra.domains.that.you.need.example.com
 
       [DHCP]
       UseDomains=yes
-      SendHostname=yes
       ```
-      1. `rm /etc/resolv.conf && ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf`
+      1. `rm /etc/resolv.conf ; ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf`
 1. `echo hostname > /etc/hostname`
 1. `passwd` - Set the root password
 1. `useradd -m your_username`
@@ -75,23 +74,25 @@ use BTRFS as your root partition. This guide also assumes that you have an Intel
           Exec = /usr/bin/bootctl update
           ```
        1. Edit `/boot/loader/loader.conf`:
-       ```
-       default  arch
-       timeout  4
-       ```
+          ```
+          default  arch
+          timeout  4
+          ```
        1. Figure out your root UUID By running `blkid`
        1. Create `/boot/loader/entries/arch.conf`
-       ```
-       title          Arch Linux
-       linux          /vmlinuz-linux
-       initrd         /intel-ucode.img
-       initrd         /initramfs-linux.img
-       options        root=PARTUUID=THE-UUID-YOU-FOUND-OUT rw
-       ```
-1. Reboot
+          ```
+          title          Arch Linux
+          linux          /vmlinuz-linux
+          initrd         /intel-ucode.img
+          initrd         /initramfs-linux.img
+          options        root=PARTUUID=THE-UUID-YOU-FOUND-OUT rw
+          ```
+1. Leave chroot - `exit`
+1. Reboot - `systemctl reboot`
 
 ## Extras
 ### GNOME
 `pacman -S gnome && exec systemctl enable --now gdm`
+
 ### Pacaur
 TODO
