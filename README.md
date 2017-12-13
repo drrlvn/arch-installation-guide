@@ -1,9 +1,13 @@
 # Arch Linux installation guide
 
 So you want to install Arch Linux but got lost in the Wiki. This is a quick guide for installing a
-basic system. It is far from being feature-complete, as it makes some basic assumptions, such as
-that you don't install Arch Linux side by side with another operating system, and that you wish to
-use BTRFS as your root partition. This guide also assumes that you have an Intel CPU.
+basic system. It is far from being feature-complete, as it makes some basic assumptions.
+
+## Assumptions
+1. You want to use the entire disk for Arch Linux without dual-booting another operating system.
+1. You use either a physical or a virtual x86 64 bit machine which is capable booting in either BIOS or EFI mode.
+1. Use you an Intel CPU.
+1. Your desired root filesystem is BTRFS.
 
 ## The steps
 
