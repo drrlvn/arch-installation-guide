@@ -25,7 +25,7 @@ basic system. It is far from being feature-complete, as it makes some basic assu
       1. `mkdir /mnt/boot`
       1. `mount /dev/sda1 /mnt/boot`
 1. If you're using Wifi, launch `wifi-menu`
-1. `pacstrap /mnt base intel-ucode sudo`
+1. `pacstrap /mnt base intel-ucode sudo btrfs-progs`
 1. `genfstab -U /mnt >> /mnt/etc/fstab`
 1. `arch-chroot /mnt`
 1. `ln -sf /usr/share/zoneinfo/Region/City /etc/localtime`
