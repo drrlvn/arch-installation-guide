@@ -13,6 +13,14 @@ basic system. It is far from being feature-complete, as it makes some basic assu
 
 1. Boot into Arch Linux live installation media. Make sure that you know which disk is used for your
    installation. We'll assume it's `/dev/sda`.
+1. If you're using Wifi, launch `wifi-menu`. You're network should be automatically configured if
+   you're using wired network.
+1. *Optional* - You can launch an SSH server and continue your installation remotely from another
+computer. In order to do that:
+    1. Set a root password using `passwd`
+    1. Start the SSH server using `systemctl start sshd`
+    1. Figure out your IP using `ip a`
+    1. SSH to your installation disk from another computer and continue the installation as usual.
 1. Partition your disk:
    1. **BIOS** - Just `mkfs.btrfs /dev/sda` the entire disk and then `mount /dev/sda /mnt`
    1. **EFI** - Use `cfdisk` for partitioning:
@@ -24,7 +32,6 @@ basic system. It is far from being feature-complete, as it makes some basic assu
       1. `mount /dev/sda2 /mnt`
       1. `mkdir /mnt/boot`
       1. `mount /dev/sda1 /mnt/boot`
-1. If you're using Wifi, launch `wifi-menu`
 1. `pacstrap /mnt base intel-ucode sudo btrfs-progs`
 1. `genfstab -U /mnt >> /mnt/etc/fstab`
 1. `arch-chroot /mnt`
@@ -92,6 +99,8 @@ basic system. It is far from being feature-complete, as it makes some basic assu
           options        root=PARTUUID=THE-UUID-YOU-FOUND-OUT rw
           ```
 1. Leave chroot - `exit`
+1. If this is a server installation you might want to enable SSH before rebooting. See the
+   instructions at the bottom.
 1. Reboot - `systemctl reboot`
 
 ## Extras
