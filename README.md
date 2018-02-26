@@ -110,8 +110,10 @@ computer. In order to do that:
 ### Setting up an SSH server
 `pacman -S openssh && systemctl enable --now sshd.socket`
 
-### Pacaur
-1. `pacman -S --needed base-devel git`
+### Yay
+Building packages from AUR isn't possible to do as root. In order to install Yay you have to
+configure sudo and run these commands as a regular user.
+
+1. `sudo pacman -S --needed base-devel git`
 1. `cd /tmp`
-1. `git clone https://aur.archlinux.org/cower.git && cd cower && makepkg -i --asdeps && cd - && git
-   clone https://aur.archlinux.org/pacaur.git && cd pacaur && makepkg -i && cd - && rm -rf cower pacaur`
+1. `git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -i && cd - && rm -rf yay-bin`
