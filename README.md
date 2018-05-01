@@ -12,7 +12,7 @@ basic system. It is far from being feature-complete, as it makes some basic assu
 ## The steps
 
 1. Boot into Arch Linux live installation media. Make sure that you know which disk is used for your
-   installation. We'll assume it's `/dev/sda`.
+   installation. We'll assume it's `/dev/sda`.  You can use `blkid` to list block devices.
 1. If you're using Wifi, launch `wifi-menu`. You're network should be automatically configured if
    you're using wired network.
 1. *Optional* - You can launch an SSH server and continue your installation remotely from another
@@ -46,7 +46,6 @@ computer. In order to do that:
       1. Once you have a GUI environment set up - configure the network using the GUI
    1. **PC/VM** - Use [systemd-networkd](https://wiki.archlinux.org/index.php/Systemd-networkd)
       1. `systemctl enable systemd-{network,resolve}d`
-      1. Use `ip link` to determine the name of your network interface
       1. Edit `/etc/systemd/network/dhcp.network`:
       ```
       [Match]
@@ -60,11 +59,11 @@ computer. In order to do that:
       UseDomains=yes
       ```
       1. `rm /etc/resolv.conf ; ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf`
-1. `echo hostname > /etc/hostname`
+1. `echo <hostname>  > /etc/hostname`
 1. `passwd` - Set the root password
-1. `useradd -m your_username`
-1. `usermod -G wheel -a your_username`
-1. `visudo` - Comment out the line containing the `wheel` group
+1. `useradd -m <your_username>`
+1. `usermod -G wheel -a <your_username>`
+1. `EDITOR=vi visudo` - Comment out the line containing the `wheel` group
 1. Install the bootloader
     1. **BIOS** - [GRUB](https://wiki.archlinux.org/index.php/GRUB)
        1. `pacman -S grub`
