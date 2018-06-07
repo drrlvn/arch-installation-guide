@@ -47,17 +47,17 @@ computer. In order to do that:
    1. **PC/VM** - Use [systemd-networkd](https://wiki.archlinux.org/index.php/Systemd-networkd)
       1. `systemctl enable systemd-{network,resolve}d`
       1. Edit `/etc/systemd/network/dhcp.network`:
-      ```
-      [Match]
-      Name=en*
+          ```
+          [Match]
+          Name=en*
 
-      [Network]
-      DHCP=ipv4
-      Domains=extra.domains.that.you.need.example.com
+          [Network]
+          DHCP=ipv4
+          Domains=extra.domains.that.you.need.example.com
 
-      [DHCP]
-      UseDomains=yes
-      ```
+          [DHCP]
+          UseDomains=yes
+          ```
       1. `rm /etc/resolv.conf ; ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf`
 1. `echo <hostname>  > /etc/hostname`
 1. `passwd` - Set the root password
