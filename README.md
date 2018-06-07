@@ -63,6 +63,7 @@ computer. In order to do that:
 1. `passwd` - Set the root password
 1. `useradd -m <your_username>`
 1. `usermod -G wheel -a <your_username>`
+1. `passwd <your_username>` - Set the user password
 1. `EDITOR=vi visudo` - Comment out the line containing the `wheel` group
 1. Install the bootloader
     1. **BIOS** - [GRUB](https://wiki.archlinux.org/index.php/GRUB)
