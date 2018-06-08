@@ -105,13 +105,13 @@ computer. In order to do that:
 
 ## Extras
 ### GNOME
-`pacman -S gnome && systemctl enable --now gdm`
+```pacman -S gnome && systemctl enable --now gdm```
 
 ### KDE
-`pacman -S sddm plasma kde-applications && systemctl enable --now sddm` - Add `plasma-nm` if you're using NetworkManager.
+```pacman -S sddm plasma kde-applications && systemctl enable --now sddm```
 
 ### Setting up an SSH server
-`pacman -S openssh && systemctl enable --now sshd.socket`
+```pacman -S openssh && systemctl enable --now sshd.socket```
 
 ### Yay
 Building packages from AUR isn't possible to do as root. In order to install Yay you have to
