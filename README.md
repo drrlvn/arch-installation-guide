@@ -107,6 +107,9 @@ computer. In order to do that:
 ### GNOME
 `pacman -S gnome && systemctl enable --now gdm`
 
+### KDE
+`pacman -S sddm plasma kde-applications && systemctl enable --now sddm` - Add `plasma-nm` if you're using NetworkManager.
+
 ### Setting up an SSH server
 `pacman -S openssh && systemctl enable --now sshd.socket`
 
