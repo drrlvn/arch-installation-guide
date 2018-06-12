@@ -58,7 +58,6 @@ computer. In order to do that:
           [DHCP]
           UseDomains=yes
           ```
-      1. `rm /etc/resolv.conf ; ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf`
 1. `echo <hostname>  > /etc/hostname`
 1. `passwd` - Set the root password
 1. `useradd -m <your_username>`
@@ -102,6 +101,9 @@ computer. In order to do that:
 1. If this is a server installation you might want to enable SSH before rebooting. See the
    instructions at the bottom.
 1. Reboot - `systemctl reboot`
+1. If you use `systemd-networkd`:
+
+    `rm /etc/resolv.conf ; ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf`
 
 ## Extras
 ### GNOME
