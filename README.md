@@ -110,7 +110,7 @@ computer. In order to do that:
 ```pacman -S gnome && systemctl enable --now gdm```
 
 ### KDE
-```pacman -S sddm plasma kde-applications && systemctl enable --now sddm```
+```pacman -S sddm plasma kdebase kdeutils kdegraphics && systemctl enable --now sddm```
 
 ### Setting up an SSH server
 ```pacman -S openssh && systemctl enable --now sshd.socket```
