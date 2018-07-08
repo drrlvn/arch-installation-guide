@@ -24,7 +24,7 @@ computer. In order to do that:
 1. Partition your disk:
    1. **BIOS** - Just `mkfs.btrfs /dev/sda` the entire disk and then `mount /dev/sda /mnt`
    1. **EFI** - Use `cfdisk` for partitioning:
-      1. Choose GPT partitioning
+      1. Choose GPT partitioning (if you don't get the option to choose ,please run `cfdisk -z`)
       1. Create a 512MiB partition. Set its type to `EFI System`
       1. Create a partition for the rest of the drive.
       1. `mkfs.vfat -F32 /dev/sda1`
@@ -35,7 +35,7 @@ computer. In order to do that:
 1. `pacstrap /mnt base intel-ucode sudo btrfs-progs`
 1. `genfstab -U /mnt >> /mnt/etc/fstab`
 1. `arch-chroot /mnt`
-1. `ln -sf /usr/share/zoneinfo/Region/City /etc/localtime`
+1. `ln -sf /usr/share/zoneinfo/Region/City /etc/localtime` (you can see all the options in [wiki timezones list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones))
 1. Uncomment `en_US.UTF-8`and other needed localizations in `/etc/locale.gen`
 1. `locale-gen`
 1. Edit `/etc/locale.conf` and write `LANG=en_US.UTF-8`
