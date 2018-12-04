@@ -84,9 +84,7 @@ computer. In order to do that:
 1. If this is a server installation you might want to enable SSH before rebooting. See the
    instructions at the bottom.
 1. Reboot - `systemctl reboot`
-1. If you use `systemd-networkd`:
-
-    `rm /etc/resolv.conf ; ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf`
+1. Once your system is up activate NTP by running `timedatectl set-ntp on`
 
 ## Extras
 ### GNOME
