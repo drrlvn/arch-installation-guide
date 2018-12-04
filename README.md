@@ -26,10 +26,13 @@ computer. In order to do that:
    1. Run Use `cfdisk` for partitioning:
    1. Choose GPT partitioning (if you don't get the option to choose ,please run `cfdisk -z`)
    1. Create a 512MiB partition. Set its type to `EFI System`
+   1. Create a swap partition. 4GiB will probably do. Set its type to `Linux Swap`
    1. Create a partition for the rest of the drive.
+   1. `mkswap /dev/sda2`
+   1. `swapon /dev/sda2`
    1. `mkfs.vfat -F32 /dev/sda1`
-   1. `mkfs.btrfs /dev/sda2`
-   1. `mount /dev/sda2 /mnt`
+   1. `mkfs.btrfs /dev/sda3`
+   1. `mount /dev/sda3 /mnt`
    1. `mkdir /mnt/boot`
    1. `mount /dev/sda1 /mnt/boot`
 1. `pacstrap /mnt base intel-ucode sudo btrfs-progs`
