@@ -8,7 +8,7 @@ basic system. It is far from being feature-complete, as it makes some basic assu
 1. You use either a physical or a virtual x86 64 bit machine which is capable booting in EFI
    mode. Note that if you use a virtual machine then you'll probably have to check the EFI option somewhere.
 1. You use an Intel CPU.
-1. Your desired root filesystem is BTRFS.
+1. Your desired root filesystem is XFS.
 
 ## The steps
 
@@ -31,11 +31,11 @@ computer. In order to do that:
    1. `mkswap /dev/sda2`
    1. `swapon /dev/sda2`
    1. `mkfs.vfat -F32 /dev/sda1`
-   1. `mkfs.btrfs /dev/sda3`
+   1. `mkfs.xfs /dev/sda3`
    1. `mount /dev/sda3 /mnt`
    1. `mkdir /mnt/boot`
    1. `mount /dev/sda1 /mnt/boot`
-1. `pacstrap /mnt base intel-ucode sudo btrfs-progs`
+1. `pacstrap /mnt base intel-ucode sudo`
 1. `genfstab -U /mnt >> /mnt/etc/fstab`
 1. `arch-chroot /mnt`
 1. `ln -sf /usr/share/zoneinfo/Region/City /etc/localtime` (you can see all the options in [wiki timezones list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones))
