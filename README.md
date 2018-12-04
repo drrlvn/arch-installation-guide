@@ -5,7 +5,8 @@ basic system. It is far from being feature-complete, as it makes some basic assu
 
 ## Assumptions
 1. You want to use the entire disk for Arch Linux without dual-booting another operating system.
-1. You use either a physical or a virtual x86 64 bit machine which is capable booting in either BIOS or EFI mode.
+1. You use either a physical or a virtual x86 64 bit machine which is capable booting in EFI
+   mode. Note that if you use a virtual machine then you'll probably have to check the EFI option somewhere.
 1. You use an Intel CPU.
 1. Your desired root filesystem is BTRFS.
 
@@ -22,16 +23,15 @@ computer. In order to do that:
     1. Figure out your IP using `ip a`
     1. SSH to your installation disk from another computer and continue the installation as usual.
 1. Partition your disk:
-   1. **BIOS** - Just `mkfs.btrfs /dev/sda` the entire disk and then `mount /dev/sda /mnt`
-   1. **EFI** - Use `cfdisk` for partitioning:
-      1. Choose GPT partitioning (if you don't get the option to choose ,please run `cfdisk -z`)
-      1. Create a 512MiB partition. Set its type to `EFI System`
-      1. Create a partition for the rest of the drive.
-      1. `mkfs.vfat -F32 /dev/sda1`
-      1. `mkfs.btrfs /dev/sda2`
-      1. `mount /dev/sda2 /mnt`
-      1. `mkdir /mnt/boot`
-      1. `mount /dev/sda1 /mnt/boot`
+   1. Run Use `cfdisk` for partitioning:
+   1. Choose GPT partitioning (if you don't get the option to choose ,please run `cfdisk -z`)
+   1. Create a 512MiB partition. Set its type to `EFI System`
+   1. Create a partition for the rest of the drive.
+   1. `mkfs.vfat -F32 /dev/sda1`
+   1. `mkfs.btrfs /dev/sda2`
+   1. `mount /dev/sda2 /mnt`
+   1. `mkdir /mnt/boot`
+   1. `mount /dev/sda1 /mnt/boot`
 1. `pacstrap /mnt base intel-ucode sudo btrfs-progs`
 1. `genfstab -U /mnt >> /mnt/etc/fstab`
 1. `arch-chroot /mnt`
@@ -55,48 +55,44 @@ computer. In order to do that:
           DHCP=ipv4
           Domains=extra.domains.that.you.need.example.com
 
+
           [DHCP]
           UseDomains=yes
           ```
-1. `echo <hostname>  > /etc/hostname`
+1. `echo [YOUR HOSTNAME] > /etc/hostname`
 1. `passwd` - Set the root password
 1. `useradd -m <your_username>`
 1. `usermod -G wheel -a <your_username>`
 1. `passwd <your_username>` - Set the user password
 1. `EDITOR=vi visudo` - Comment out the line containing the `wheel` group
-1. Install the bootloader
-    1. **BIOS** - [GRUB](https://wiki.archlinux.org/index.php/GRUB)
-       1. `pacman -S grub`
-       1. `grub-install --target=i386-pc /dev/sda`
-       1. `grub-mkconfig -o /boot/grub/grub.cfg`
-    1. **EFI** - [systemd-boot](https://wiki.archlinux.org/index.php/Systemd-boot)
-       1. `bootctl --path=/boot install`
-       1. Edit `/etc/pacman.d/hooks/systemd-boot.hook`:
-          ```
-          [Trigger]
-          Type = Package
-          Operation = Upgrade
-          Target = systemd
+1. Install the bootloader - [systemd-boot](https://wiki.archlinux.org/index.php/Systemd-boot)
+    1. `bootctl --path=/boot install`
+    1. Edit `/etc/pacman.d/hooks/systemd-boot.hook`:
+       ```
+       [Trigger]
+       Type = Package
+       Operation = Upgrade
+       Target = systemd
 
-          [Action]
-          Description = Updating systemd-boot...
-          When = PostTransaction
-          Exec = /usr/bin/bootctl update
-          ```
-       1. Edit `/boot/loader/loader.conf`:
-          ```
-          default  arch
-          timeout  4
-          ```
-       1. Figure out your root UUID By running `blkid`
-       1. Create `/boot/loader/entries/arch.conf`
-          ```
-          title          Arch Linux
-          linux          /vmlinuz-linux
-          initrd         /intel-ucode.img
-          initrd         /initramfs-linux.img
-          options        root=PARTUUID=THE-UUID-YOU-FOUND-OUT rw
-          ```
+       [Action]
+       Description = Updating systemd-boot...
+       When = PostTransaction
+       Exec = /usr/bin/bootctl update
+       ```
+    1. Edit `/boot/loader/loader.conf`:
+       ```
+       default  arch
+       timeout  4
+       ```
+    1. Figure out your root UUID By running `blkid`
+    1. Create `/boot/loader/entries/arch.conf`
+       ```
+       title          Arch Linux
+       linux          /vmlinuz-linux
+       initrd         /intel-ucode.img
+       initrd         /initramfs-linux.img
+       options        root=PARTUUID=THE-UUID-YOU-FOUND-OUT rw
+       ```
 1. Leave chroot - `exit`
 1. If this is a server installation you might want to enable SSH before rebooting. See the
    instructions at the bottom.
