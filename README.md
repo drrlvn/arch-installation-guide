@@ -78,7 +78,7 @@ computer. In order to do that:
        linux          /vmlinuz-linux
        initrd         /intel-ucode.img
        initrd         /initramfs-linux.img
-       options        root=PARTUUID=THE-UUID-YOU-FOUND-OUT rw
+       options        root=UUID=<THE-UUID-YOU-FOUND-OUT> rw
        ```
 1. Leave chroot - `exit`
 1. If this is a server installation you might want to enable SSH before rebooting. See the
