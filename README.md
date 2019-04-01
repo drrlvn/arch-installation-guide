@@ -27,7 +27,7 @@ computer. In order to do that:
    1. Choose GPT partitioning (if you don't get the option to choose ,please run `cfdisk -z`)
    1. Create a 512MiB partition. Set its type to `EFI System`
    1. Create a swap partition. 4GiB will probably do. Set its type to `Linux Swap`
-   1. Create a partition for the rest of the drive.
+   1. Create a partition for the rest of the drive. (that should create /dev/sda3)
    1. `mkswap /dev/sda2`
    1. `swapon /dev/sda2`
    1. `mkfs.vfat -F32 /dev/sda1`
