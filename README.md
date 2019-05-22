@@ -72,14 +72,14 @@ computer. In order to do that:
        timeout  4
        ```
     1. Figure out your root partition's UUID By running `blkid`. This should probably be the UUID of /dev/sda3
-    1. Create `/boot/loader/entries/arch.conf`. Replace `<UUID>` with the UUID that you got from
+    1. Create `/boot/loader/entries/arch.conf`. Replace `<PUUID>` with the PARTUUID that you got from
     running `blkid`. Note that the UUID is case sensitive.
        ```
        title          Arch Linux
        linux          /vmlinuz-linux
        initrd         /intel-ucode.img
        initrd         /initramfs-linux.img
-       options        root=PARTUUID=<UUID> rw
+       options        root=PARTUUID=<PUUID> rw
        ```
 1. Leave chroot - `exit`
 1. If this is a server installation you might want to enable SSH before rebooting. See the
