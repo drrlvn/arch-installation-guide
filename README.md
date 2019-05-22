@@ -51,7 +51,7 @@ computer. In order to do that:
 1. `useradd -m <your_username>`
 1. `usermod -G wheel -a <your_username>`
 1. `passwd <your_username>` - Set the user password
-1. `EDITOR=vi visudo` - Comment out the line containing the `wheel` group
+1. `EDITOR=vi visudo` - Uncomment the line containing the `wheel` group
 1. Install the bootloader - [systemd-boot](https://wiki.archlinux.org/index.php/Systemd-boot)
     1. `bootctl --path=/boot install`
     1. Edit `/etc/pacman.d/hooks/systemd-boot.hook`:
