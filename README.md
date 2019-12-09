@@ -12,6 +12,7 @@ basic system. It is far from being feature-complete, as it makes some basic assu
 
 ## The steps
 
+1. Disable "Secure Boot" in the BIOS. 
 1. Boot into Arch Linux live installation media. Make sure that you know which disk is used for your
    installation. We'll assume it's `/dev/sda`.  You can use `blkid` to list block devices.
 1. If you're using Wifi, launch `wifi-menu`. You're network should be automatically configured if
@@ -35,7 +36,7 @@ computer. In order to do that:
    1. `mount /dev/sda3 /mnt`
    1. `mkdir /mnt/boot`
    1. `mount /dev/sda1 /mnt/boot`
-1. `pacstrap /mnt base intel-ucode sudo`
+1. `pacstrap /mnt base intel-ucode sudo linux linux-firmware vi`
 1. `genfstab -U /mnt >> /mnt/etc/fstab`
 1. `arch-chroot /mnt`
 1. `ln -sf /usr/share/zoneinfo/Region/City /etc/localtime` (you can see all the options in [wiki timezones list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones))
@@ -86,6 +87,7 @@ computer. In order to do that:
    instructions at the bottom.
 1. Reboot - `systemctl reboot`
 1. Once your system is up activate NTP by running `timedatectl set-ntp on`
+1. If needed, connect to wifi by running `nmcli device wifi connect <SSID> password <password>`
 
 ## Extras
 ### GNOME
