@@ -24,7 +24,7 @@ computer. In order to do that:
     1. Figure out your IP using `ip a`
     1. SSH to your installation disk from another computer and continue the installation as usual.
 1. Partition your disk:
-   1. Run Use `cfdisk` for partitioning:
+   1. Run `cfdisk` for partitioning
    1. Choose GPT partitioning (if you don't get the option to choose ,please run `cfdisk -z`)
    1. Create a 512MiB partition. Set its type to `EFI System`
    1. Create a swap partition. 4GiB will probably do. Set its type to `Linux Swap`
@@ -36,7 +36,7 @@ computer. In order to do that:
    1. `mount /dev/sda3 /mnt`
    1. `mkdir /mnt/boot`
    1. `mount /dev/sda1 /mnt/boot`
-1. `pacstrap /mnt base intel-ucode sudo linux linux-firmware vi`
+1. `pacstrap /mnt base intel-ucode sudo linux linux-firmware xfsprogs neovim`
 1. `genfstab -U /mnt >> /mnt/etc/fstab`
 1. `arch-chroot /mnt`
 1. `ln -sf /usr/share/zoneinfo/Region/City /etc/localtime` (you can see all the options in [wiki timezones list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones))
@@ -52,7 +52,7 @@ computer. In order to do that:
 1. `useradd -m <your_username>`
 1. `usermod -G wheel -a <your_username>`
 1. `passwd <your_username>` - Set the user password
-1. `EDITOR=vi visudo` - Uncomment the line containing the `wheel` group
+1. `EDITOR=nvim visudo` - Uncomment the line containing the `wheel` group
 1. Install the bootloader - [systemd-boot](https://wiki.archlinux.org/index.php/Systemd-boot)
     1. `bootctl --path=/boot install`
     1. Edit `/etc/pacman.d/hooks/systemd-boot.hook`:
@@ -69,11 +69,11 @@ computer. In order to do that:
        ```
     1. Edit `/boot/loader/loader.conf`:
        ```
-       default  arch
        timeout  4
+       default  arch
        ```
     1. Figure out your root partition's UUID By running `blkid`. This should probably be the UUID of /dev/sda3
-    1. Create `/boot/loader/entries/arch.conf`. Replace `<PUUID>` with the PARTUUID that you got from
+    1. Create `/boot/loader/entries/arch.conf`. Replace `<PUUID>` (**NOT** `<UUID>`) with the PARTUUID that you got from
     running `blkid`. Note that the UUID is case sensitive.
        ```
        title          Arch Linux
@@ -90,15 +90,6 @@ computer. In order to do that:
 1. If needed, connect to wifi by running `nmcli device wifi connect <SSID> password <password>`
 
 ## Extras
-### GNOME
-```pacman -S gnome && systemctl enable --now gdm```
-
-### KDE
-```pacman -S sddm plasma kdebase kdeutils kdegraphics && systemctl enable --now sddm```
-
-### Setting up an SSH server
-```pacman -S openssh && systemctl enable --now sshd.socket```
-
 ### Yay
 Building packages from AUR isn't possible to do as root. In order to install Yay you have to
 configure sudo and run these commands as a regular user.
@@ -106,3 +97,12 @@ configure sudo and run these commands as a regular user.
 1. `sudo pacman -S --needed base-devel git`
 1. `cd /tmp`
 1. `git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -i && cd - && rm -rf yay-bin`
+
+### GNOME
+```pacman -S gnome && systemctl enable --now gdm```
+
+### KDE
+```pacman -S sddm plasma-meta kdebase-meta kdeutils-meta kdegraphics-meta && systemctl enable --now sddm```
+
+### Setting up an SSH server
+```pacman -S openssh && systemctl enable --now sshd.socket```
